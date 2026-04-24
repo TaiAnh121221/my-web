@@ -1,3 +1,30 @@
+window.addEventListener('load', () => {
+    const music = document.getElementById('bg-music');
+    
+    // Thử phát nhạc ngay khi load trang
+    let promise = music.play();
+
+    if (promise !== undefined) {
+        promise.then(_ => {
+            // Nếu phát được (trình duyệt cho phép) thì tốt
+            console.log("Nhạc đang phát!");
+        }).catch(error => {
+            // Nếu bị chặn, ta sẽ chờ người dùng tương tác lần đầu
+            console.log("Trình duyệt chặn autoplay. Nhạc sẽ phát sau khi bạn click.");
+            
+            const startMusic = () => {
+                music.muted = false; // Bật tiếng lại
+                music.play();
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('keydown', startMusic);
+            };
+            
+            // Lắng nghe cả click và phím bấm
+            document.addEventListener('click', startMusic);
+            document.addEventListener('keydown', startMusic);
+        });
+    }
+});
 const formTitle = document.getElementById('form-title');
 const btnMain = document.getElementById('btn-main');
 const switchBtn = document.getElementById('switch-mode');
@@ -47,4 +74,14 @@ btnMain.addEventListener('click', () => {
             statusText.innerText = "❌ Sai thông tin rồi!";
         }
     }
+});
+// --- Dán vào cuối file script.js ---
+const splash = document.getElementById('splash-screen');
+const logo = document.getElementById('sharingan-logo');
+const bgMusic = document.getElementById('bg-music');
+
+// Khi nhấn vào con mắt
+logo.addEventListener('click', () => {
+    bgMusic.play(); // Bật nhạc
+    splash.classList.add('hidden'); // Ẩn màn hình đen đi
 });
