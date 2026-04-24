@@ -1,78 +1,55 @@
-// Khai báo các thành phần
-const splash = document.getElementById('splash-screen');
-const bgMusic = document.getElementById('bg-music');
 const authSection = document.getElementById('auth-section');
 const gallerySection = document.getElementById('gallery-section');
-
 const btnMain = document.getElementById('btn-main');
 const switchBtn = document.getElementById('switch-mode');
 const formTitle = document.getElementById('form-title');
 const rePassGroup = document.getElementById('re-pass-group');
 const statusText = document.getElementById('status-text');
-
-const emailInp = document.getElementById('user-email');
-const passInp = document.getElementById('user-pass');
-const rePassInp = document.getElementById('user-re-pass');
+const bgMusic = document.getElementById('bg-music');
 
 let isRegister = true;
 
-// 1. Xử lý Màn hình chờ & Nhạc
-splash.addEventListener('click', () => {
-    splash.classList.add('hidden'); // Ẩn màn hình đen
-    bgMusic.play().catch(err => console.log("Yêu cầu tương tác để phát nhạc"));
-});
+// 1. MẸO BẬT NHẠC TỰ ĐỘNG: Ngay khi người dùng di chuột hoặc chạm vào web
+const autoPlayMusic = () => {
+    bgMusic.play().then(() => {
+        ["click", "mousemove", "touchstart"].forEach(e => window.removeEventListener(e, autoPlayMusic));
+    }).catch(err => console.log("Chờ tương tác..."));
+};
+["click", "mousemove", "touchstart"].forEach(e => window.addEventListener(e, autoPlayMusic));
 
-// 2. Chuyển đổi Đăng ký / Đăng nhập
+// 2. CHUYỂN ĐỔI ĐĂNG KÝ / ĐĂNG NHẬP
 switchBtn.addEventListener('click', () => {
     isRegister = !isRegister;
-    if (isRegister) {
-        formTitle.innerText = "ĐĂNG KÝ TÀI KHOẢN";
-        btnMain.innerText = "XÁC NHẬN ĐĂNG KÝ";
-        rePassGroup.style.display = "block";
-        switchBtn.innerText = "Đăng nhập ngay";
-    } else {
-        formTitle.innerText = "ĐĂNG NHẬP";
-        btnMain.innerText = "VÀO HỆ THỐNG";
-        rePassGroup.style.display = "none";
-        switchBtn.innerText = "Đăng ký tại đây";
-    }
+    formTitle.innerText = isRegister ? "ĐĂNG KÝ TÀI KHOẢN" : "ĐĂNG NHẬP";
+    btnMain.innerText = isRegister ? "XÁC NHẬN ĐĂNG KÝ" : "VÀO HỆ THỐNG";
+    rePassGroup.style.display = isRegister ? "block" : "none";
+    switchBtn.innerText = isRegister ? "Đăng nhập ngay" : "Đăng ký tại đây";
 });
 
-// 3. Xử lý logic nút Chính (Quan trọng nhất)
+// 3. XỬ LÝ LOGIC CHÍNH
 btnMain.addEventListener('click', () => {
-    const email = emailInp.value;
-    const pass = passInp.value;
+    const email = document.getElementById('user-email').value;
+    const pass = document.getElementById('user-pass').value;
 
     if (!email || !pass) {
-        statusText.innerText = "❌ Nhập đủ thông tin đi nhẫn giả!";
+        statusText.innerText = "❌ Điền đủ thông tin đã!";
         return;
     }
 
     if (isRegister) {
-        // Logic Đăng ký
-        if (pass !== rePassInp.value) {
-            statusText.innerText = "❌ Mật khẩu không khớp!";
-            return;
-        }
+        // Đăng ký
         localStorage.setItem('uEmail', email);
         localStorage.setItem('uPass', pass);
-        statusText.innerText = "✅ Đăng ký thành công! Hãy đăng nhập.";
+        statusText.innerText = "✅ Xong! Hãy Đăng nhập.";
         setTimeout(() => { isRegister = false; switchBtn.click(); }, 1000);
     } else {
-        // Logic Đăng nhập & Chuyển cảnh xuyên suốt
-        const sEmail = localStorage.getItem('uEmail');
-        const sPass = localStorage.getItem('uPass');
-
-        if (email === sEmail && pass === sPass) {
-            statusText.innerText = "✅ Đang vào kho lưu trữ...";
-            
-            // LỆNH ẢO THUẬT: Ẩn form, Hiện Gallery
+        // Đăng nhập
+        if (email === localStorage.getItem('uEmail') && pass === localStorage.getItem('uPass')) {
+            // CHUYỂN CẢNH KHÔNG NGẮT NHẠC
             authSection.style.display = 'none';
             gallerySection.style.display = 'block';
-            
-            // NHẠC VẪN CHẠY VÌ KHÔNG ĐỔI TRANG!
         } else {
-            statusText.innerText = "❌ Thông tin sai rồi!";
+            statusText.innerText = "❌ Sai thông tin rồi!";
         }
     }
 });
