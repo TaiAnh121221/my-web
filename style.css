@@ -232,3 +232,19 @@ button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff0000; }
     100% { opacity: 0.5; }
 }
 .hidden { opacity: 0 !important; visibility: hidden !important; transition: 0.8s; }
+/* Đảm bảo Gallery chiếm hết màn hình và có nền đen ngầu */
+#gallery-section {
+    background: #0e0e0e;
+    min-height: 100vh;
+    padding-top: 50px;
+}
+
+/* Hiệu ứng hiện hình mượt mà */
+#gallery-section {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

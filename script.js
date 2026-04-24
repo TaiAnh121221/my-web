@@ -63,14 +63,26 @@ btnMain.addEventListener('click', () => {
         localStorage.setItem('userPass', pass);
         statusText.innerText = "✅ Đăng ký xong! Đang chuyển trang...";
         setTimeout(() => { isRegister = false; switchBtn.click(); }, 1000);
+   // ... đoạn code phía trên giữ nguyên ...
     } else {
-        // Logic Đăng nhập
+        // Đây là Logic Đăng nhập
         const savedEmail = localStorage.getItem('userEmail');
         const savedPass = localStorage.getItem('userPass');
+
         if (email === savedEmail && pass === savedPass) {
-            window.location.href = "gallery.html";
+            // --- ĐÂY CHÍNH LÀ BƯỚC 2: THAY THẾ LỆNH CHUYỂN TRANG ---
+            
+            const authSection = document.getElementById('auth-section');
+            const gallerySection = document.getElementById('gallery-section');
+
+            if (authSection && gallerySection) {
+                authSection.style.display = 'none';    // Ẩn Form
+                gallerySection.style.display = 'block'; // Hiện Gallery
+            }
+
+            // ---------------------------------------------------
         } else {
             statusText.innerText = "❌ Sai thông tin rồi!";
         }
     }
-});
+}); // Kết thúc nút btnMain
