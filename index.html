@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnhTai - Đăng ký</title>
+    <title>AnhTai - Uchiha System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="auth-section">
-        <div class="overlay"></div> 
+        <div class="overlay"></div>
         <div class="container">
             <div class="card">
                 <h2 id="form-title">ĐĂNG KÝ TÀI KHOẢN</h2>
+                <div class="input-group">
+                    <input type="email" id="user-email" placeholder="Email của bạn..." required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="user-pass" placeholder="Mật khẩu..." required>
+                </div>
+                <div class="input-group" id="re-pass-group">
+                    <input type="password" id="user-re-pass" placeholder="Nhập lại mật khẩu...">
+                </div>
+                <p id="status-text">Khởi tạo sức mạnh của bạn</p>
                 <button id="btn-main">XÁC NHẬN ĐĂNG KÝ</button>
-                <p>Bạn đã có tài khoản? <span id="switch-mode">Đăng nhập ngay</span></p>
+                <p style="margin-top: 15px; font-size: 14px;">
+                    Bạn đã có tài khoản? 
+                    <span id="switch-mode" style="cursor:pointer; color:#ff4444; font-weight:bold;">Đăng nhập ngay</span>
+                </p>
             </div>
         </div>
     </div>
@@ -22,7 +35,23 @@
         <div class="container">
             <div class="card gallery-card">
                 <h2>KHO LƯU TRỮ UCHIHA</h2>
+                <p>Ảnh của bạn đã được tải lên hệ thống thành công</p>
+                <div class="image-grid">
+                    <div class="img-item">
+                        <img src="itachi.jpg" alt="Itachi">
+                        <p>Itachi Uchiha</p>
+                    </div>
+                    <div class="img-item">
+                        <img src="obito.jpg" alt="Obito">
+                        <p>Obito Uchiha</p>
+                    </div>
+                    <div class="img-item">
+                        <img src="pain.jpg" alt="Pain">
+                        <p>Pain (Nagato)</p>
+                    </div>
                 </div>
+                <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">Đăng xuất</button>
+            </div>
         </div>
     </div>
 
@@ -31,7 +60,11 @@
     </audio>
 
     <div id="splash-screen">
+        <div class="sharingan-container">
+            <img src="sharingan.jpg" id="sharingan-logo" alt="Sharingan">
+            <p style="color:red; font-weight:bold; letter-spacing:2px; margin-top:20px;">NHẤN VÀO SHARINGAN ĐỂ BẮT ĐẦU</p>
         </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

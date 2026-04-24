@@ -1,9 +1,12 @@
-// 1. KHAI BÁO BIẾN
+// Khai báo các thành phần
 const splash = document.getElementById('splash-screen');
 const bgMusic = document.getElementById('bg-music');
-const formTitle = document.getElementById('form-title');
+const authSection = document.getElementById('auth-section');
+const gallerySection = document.getElementById('gallery-section');
+
 const btnMain = document.getElementById('btn-main');
 const switchBtn = document.getElementById('switch-mode');
+const formTitle = document.getElementById('form-title');
 const rePassGroup = document.getElementById('re-pass-group');
 const statusText = document.getElementById('status-text');
 
@@ -13,21 +16,13 @@ const rePassInp = document.getElementById('user-re-pass');
 
 let isRegister = true;
 
-// 2. XỬ LÝ MÀN HÌNH CHỜ (SPLASH SCREEN) VÀ NHẠC
-if (splash) {
-    splash.addEventListener('click', () => {
-        // Ẩn màn hình đen
-        splash.classList.add('hidden');
-        
-        // Bật nhạc
-        if (bgMusic) {
-            bgMusic.muted = false;
-            bgMusic.play().catch(err => console.log("Nhạc chờ tương tác:", err));
-        }
-    });
-}
+// 1. Xử lý Màn hình chờ & Nhạc
+splash.addEventListener('click', () => {
+    splash.classList.add('hidden'); // Ẩn màn hình đen
+    bgMusic.play().catch(err => console.log("Yêu cầu tương tác để phát nhạc"));
+});
 
-// 3. CHUYỂN ĐỔI ĐĂNG KÝ / ĐĂNG NHẬP
+// 2. Chuyển đổi Đăng ký / Đăng nhập
 switchBtn.addEventListener('click', () => {
     isRegister = !isRegister;
     if (isRegister) {
@@ -43,13 +38,13 @@ switchBtn.addEventListener('click', () => {
     }
 });
 
-// 4. XỬ LÝ LƯU TRỮ (LOCALSTORAGE)
+// 3. Xử lý logic nút Chính (Quan trọng nhất)
 btnMain.addEventListener('click', () => {
     const email = emailInp.value;
     const pass = passInp.value;
 
     if (!email || !pass) {
-        statusText.innerText = "❌ Vui lòng nhập đủ thông tin!";
+        statusText.innerText = "❌ Nhập đủ thông tin đi nhẫn giả!";
         return;
     }
 
@@ -59,30 +54,25 @@ btnMain.addEventListener('click', () => {
             statusText.innerText = "❌ Mật khẩu không khớp!";
             return;
         }
-        localStorage.setItem('userEmail', email);
-        localStorage.setItem('userPass', pass);
-        statusText.innerText = "✅ Đăng ký xong! Đang chuyển trang...";
+        localStorage.setItem('uEmail', email);
+        localStorage.setItem('uPass', pass);
+        statusText.innerText = "✅ Đăng ký thành công! Hãy đăng nhập.";
         setTimeout(() => { isRegister = false; switchBtn.click(); }, 1000);
-   // ... đoạn code phía trên giữ nguyên ...
     } else {
-        // Đây là Logic Đăng nhập
-        const savedEmail = localStorage.getItem('userEmail');
-        const savedPass = localStorage.getItem('userPass');
+        // Logic Đăng nhập & Chuyển cảnh xuyên suốt
+        const sEmail = localStorage.getItem('uEmail');
+        const sPass = localStorage.getItem('uPass');
 
-        if (email === savedEmail && pass === savedPass) {
-            // --- ĐÂY CHÍNH LÀ BƯỚC 2: THAY THẾ LỆNH CHUYỂN TRANG ---
+        if (email === sEmail && pass === sPass) {
+            statusText.innerText = "✅ Đang vào kho lưu trữ...";
             
-            const authSection = document.getElementById('auth-section');
-            const gallerySection = document.getElementById('gallery-section');
-
-            if (authSection && gallerySection) {
-                authSection.style.display = 'none';    // Ẩn Form
-                gallerySection.style.display = 'block'; // Hiện Gallery
-            }
-
-            // ---------------------------------------------------
+            // LỆNH ẢO THUẬT: Ẩn form, Hiện Gallery
+            authSection.style.display = 'none';
+            gallerySection.style.display = 'block';
+            
+            // NHẠC VẪN CHẠY VÌ KHÔNG ĐỔI TRANG!
         } else {
-            statusText.innerText = "❌ Sai thông tin rồi!";
+            statusText.innerText = "❌ Thông tin sai rồi!";
         }
     }
-}); // Kết thúc nút btnMain
+});
