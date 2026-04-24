@@ -231,9 +231,4 @@ button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff0000; }
     50% { opacity: 1; }
     100% { opacity: 0.5; }
 }
-
-.hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transition: 0.5s; /* Thêm cái này cho nó ẩn đi mượt mà */
-}
+.hidden { opacity: 0 !important; visibility: hidden !important; transition: 0.8s; }
