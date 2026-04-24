@@ -232,8 +232,8 @@ button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff0000; }
     100% { opacity: 0.5; }
 }
 
-/* Lớp để ẩn màn hình chờ */
 .hidden {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: 0.5s; /* Thêm cái này cho nó ẩn đi mượt mà */
 }

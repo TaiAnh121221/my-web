@@ -1,3 +1,11 @@
+const splash = document.getElementById('splash-screen');
+const bgMusic = document.getElementById('bg-music');
+
+// Khi nhấn vào bất cứ đâu trên màn hình chờ
+splash.addEventListener('click', () => {
+    splash.classList.add('hidden'); // Ẩn màn hình đen đi
+    bgMusic.play(); // Bật nhạc lên
+});
 window.addEventListener('load', () => {
     const music = document.getElementById('bg-music');
     
