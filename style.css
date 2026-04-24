@@ -1,0 +1,190 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    /* 1. ĐÂY LÀ DÒNG QUAN TRỌNG: Thêm ảnh nền bằng đường dẫn (URL) */
+    background: url('nen.jpg');
+    
+    /* 2. Giúp ảnh nền bao phủ toàn màn hình */
+    background-size: cover;
+    
+    /* 3. Canh giữa ảnh nền */
+    background-position: center;
+    
+    /* 4. Giữ ảnh nền cố định khi cuộn trang (tùy chọn) */
+    background-attachment: fixed;
+
+    /* --- Giữ nguyên các dòng khác của body phía dưới --- */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.container { position: relative; z-index: 2; width: 90%; max-width: 400px; }
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h2 { margin-bottom: 20px; text-shadow: 0 0 10px #ff0000; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    outline: none;
+}
+
+input:focus { border-color: #ff0000; background: rgba(255, 255, 255, 0.2); }
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #ff0000, #800000);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff0000; }
+
+#status-text { margin: 10px 0; font-size: 14px; color: #ff4d4d; }
+
+#switch-mode { color: #ff4d4d; cursor: pointer; text-decoration: underline; font-weight: bold; }
+/* Container chứa các ảnh */
+.image-grid {
+    display: flex;            /* Kích hoạt chế độ nằm ngang */
+    justify-content: center;  /* Căn giữa các ô */
+    gap: 20px;               /* Khoảng cách giữa các ô */
+    flex-wrap: wrap;         /* Tự xuống dòng nếu màn hình nhỏ */
+    margin-top: 25px;
+}
+
+/* Từng ô riêng biệt */
+.img-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+    width: 150px;            /* Độ rộng cố định cho từng ô */
+}
+
+/* Khung chứa ảnh để ảnh luôn vuông và vừa vặn */
+.img-box {
+    width: 100%;
+    height: 130px;           /* Chiều cao ô ảnh */
+    overflow: hidden;        /* Cắt phần thừa của ảnh */
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* Ảnh tự co giãn để lấp đầy ô mà không bị méo */
+    transition: 0.5s;
+}
+
+/* Hiệu ứng khi di chuột vào từng ô */
+.img-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ff0000;
+}
+
+.img-item p {
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #000;
+}
+/* Container chính chứa các thẻ bài */
+.image-grid {
+    display: flex;            /* Kích hoạt dàn hàng ngang */
+    justify-content: center;  /* Căn giữa trang */
+    gap: 15px;               /* Khoảng cách giữa các ô */
+    margin: 20px 0;
+    flex-wrap: wrap;         /* Tự xuống dòng nếu màn hình hẹp */
+}
+
+/* Định dạng từng ô riêng biệt */
+.img-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    width: 130px;            /* Độ rộng nhỏ gọn cho mỗi ô */
+    text-align: center;
+    transition: 0.3s;
+}
+
+.img-item:hover {
+    transform: translateY(-5px);
+    border-color: #ff0000;
+}
+
+/* Khung chứa ảnh để đảm bảo ảnh luôn vừa vặn */
+.img-box {
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: #222;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* Ảnh tự co giãn không bị méo */
+}
+
+.img-item p {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+/* Tối ưu cho di động */
+@media (max-width: 600px) {
+    .card {
+        width: 95%; /* Khung rộng hơn trên màn hình nhỏ */
+        padding: 20px;
+    }
+
+    .image-grid {
+        gap: 10px; /* Thu hẹp khoảng cách giữa các ảnh */
+    }
+
+    .img-item {
+        width: 45%; /* Trên di động sẽ hiện 2 cột ảnh thay vì 1 hàng ngang dài */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Giảm cỡ chữ tiêu đề */
+    }
+}
